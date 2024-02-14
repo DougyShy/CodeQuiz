@@ -1,11 +1,9 @@
 var questionElement = document.querySelector(".question");
 var timerElement = document.querySelector(".time-left");
-
-var buttonElementStart = document.querySelector(".start-button");
-var buttonElementOne = document.querySelector("#buttonOne");
-var buttonElementTwo = document.querySelector("#buttonTwo");
-var buttonElementThree = document.querySelector("#buttonThree");
-var buttonElementFour = document.querySelector("#buttonFour");
+var buttonOneElement = $("#button-one");
+var buttonTwoElement = $("#button-two");
+var buttonThreeElement = $("#button-three");
+var buttonFourElement = $("#button-four");
 
 var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorect answers will penalize your score/time by ten seconds!</H2>";
 
@@ -21,19 +19,42 @@ answers = ["alerts", "parenthesis", "all of the above"];
 
 
 function resetInstructions() {
+    console.log("RESET HERE");
+
+    // RESET BOARD - 
     questionElement.innerHTML = instructionsText;
-    buttonElementOne.setAttribute("dispaly", "none");
-    buttonElementTwo.setAttribute("disabled", "false");
-    buttonElementThree.setAttribute("disabled", "false");
-    buttonElementFour.setAttribute("disabled", "false");
+
+    // REMOVE: timerElement.innerHTML="Time: " + "59";
+
+    // Reset buttons
+    buttonTwoElement.css('display', 'none')
+    buttonThreeElement.css('display', 'none')
+    buttonFourElement.css('display', 'none');
+    timerElement.innerHTML="Time: 0";
 }
 
-function startGame() {
-    questionElement.innerHTML = "BACK TO BILLY HOSSNESS";
+
+
+function startQuiz(questionNumber) {
+    console.log('Starting quiz on question number ' + (questionNumber + 1));
+    
+
 }
 
-buttonElementOne.addEventListener("click", startGame);
+/*function startGame() {
+    buttonTwoElement.css('display', 'inline-block');
+}*/
+
+/*buttonOneElement.on('click', function () {
+    console.log("Button One Clicked");
+
+    if (buttonOneElement.text() == 'START') {
+        buttonOneElement.css('display', 'inline-block');
+        buttonTwoElement.css('display', 'inline-block');
+        buttonThreeElement.css('display', 'inline-block');
+        buttonFourElement.css('display', 'inline-block');
+        startQuiz(0);
+    } 
+})*/
 
 resetInstructions();
-timerElement.innerHTML="Time: " + "59";
-

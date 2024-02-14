@@ -33,7 +33,7 @@
     line-height: 16px;
     max-width: 500px;
     padding: 20px 52px;
-    text-align: left;
+    text-align: center;
     transition-duration: 0.15s;
     transition-property: background-color;
     transition-timing-function: linear;
@@ -42,15 +42,13 @@
     width: 350px;
   }
 
-  buttonSection {
-    display: flex;
-    justify-content: center;
-  }
-
   ul {
-    list-style: none;
+    text-align: center;
+    justify-content: center;
+
   }
 
-  .startButton {
+  li {
     text-align: center;
+    list-style-type: none;
   }
