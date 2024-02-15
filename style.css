@@ -20,10 +20,10 @@
 
   .question {
     text-align: center;
-    margin: 0px 50px 20px 50px;
+    margin: 0px 200px 20px 200px;
   }
 
-  button {
+  .button {
     background: radial-gradient(circle, rgb(158, 171, 240) 0%, rgba(6, 16, 110, 0.954) 100%);
     border-radius: 8px;
     color: #13293d;
@@ -42,10 +42,13 @@
     width: 350px;
   }
 
-  ul {
-    text-align: center;
-    justify-content: center;
+  .button:hover {
+    background: lightblue;
+  }
 
+  ul {
+    /*text-align: center;*/
+    justify-content: center;
   }
 
   li {

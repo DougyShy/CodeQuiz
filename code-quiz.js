@@ -8,6 +8,9 @@ var buttonFourElement = $("#button-four");
 
 var answersElement = $('ul');
 
+var questionNumber;
+var timerCount;
+
 var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
 
 questions = ["Commonly used data types DO Not Include:",
@@ -46,6 +49,7 @@ function toggleAnswerButtons(state) {
         buttonThreeElement.css('display', 'inline-block');
         buttonFourElement.css('display', 'inline-block');
     } else {
+        buttonStartElement.css('display', 'inline-block');
         buttonOneElement.css('display', 'none');
         buttonTwoElement.css('display', 'none');
         buttonThreeElement.css('display', 'none');
@@ -53,31 +57,46 @@ function toggleAnswerButtons(state) {
     }
 }
 
-function startQuiz(questionNumber) {
+function startTimer() {
+    console.log("STARTING TIMER");
+}
+
+function nextQuestion(questionNumber) {
     console.log('Starting quiz on question number ' + (questionNumber + 1));
 
+    var numberOfQuestions = questions.length;
+
+    if (questionNumber < numberOfQuestions) {
+        loadOptions(options[questionNumber]);
+        questionElement.innerHTML=questions[questionNumber];
+    }
+    
+    questionElement.innerHTML=questions[questionNumber];
+
+}
+
+function loadOptions(questionNumber) {
+    buttonOneElement.text(questionNumber[0]);
+    buttonTwoElement.text(questionNumber[1]);
+    buttonThreeElement.text(questionNumber[2]);
+    buttonFourElement.text(questionNumber[3]);
 }
 
 /*function startGame() {
     buttonTwoElement.css('display', 'inline-block');
 }*/
 
-/*buttonOneElement.on('click', function () {
-    console.log("Button One Clicked");
+buttonStartElement.on('click', function () {
+    console.log("Start Button Clicked");
+    questionNumber = 0;
+    toggleAnswerButtons("on");
+    nextQuestion(0);
+    }
+);
 
-    if (buttonOneElement.text() == 'START') {
-        buttonOneElement.css('display', 'inline-block');
-        buttonTwoElement.css('display', 'inline-block');
-        buttonThreeElement.css('display', 'inline-block');
-        buttonFourElement.css('display', 'inline-block');
-        startQuiz(0);
-    } 
-})*/
+
 
 resetInstructions();
-toggleAnswerButtons("on");
-
-
 
 
 /* WORKS //////////
