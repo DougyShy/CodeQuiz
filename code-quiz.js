@@ -8,8 +8,8 @@ var buttonFourElement = $("#button-four");
 
 var answersElement = $('ul');
 
-var questionNumber;
-var timerCount;
+var questionNumber = 0;
+var timerCount = 60;
 
 var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
 
@@ -70,8 +70,6 @@ function nextQuestion(questionNumber) {
         loadOptions(options[questionNumber]);
         questionElement.innerHTML=questions[questionNumber];
     }
-    
-    questionElement.innerHTML=questions[questionNumber];
 
 }
 
@@ -81,10 +79,6 @@ function loadOptions(questionNumber) {
     buttonThreeElement.text(questionNumber[2]);
     buttonFourElement.text(questionNumber[3]);
 }
-
-/*function startGame() {
-    buttonTwoElement.css('display', 'inline-block');
-}*/
 
 buttonStartElement.on('click', function () {
     console.log("Start Button Clicked");
