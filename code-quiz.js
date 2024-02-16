@@ -29,6 +29,7 @@ answers = ["alerts", "parenthesis", "all of the above"];
 
 function resetInstructions() {
     console.log("RESET HERE");
+    questionNumber = 0;
 
     // RESET BOARD - 
     questionElement.innerHTML = instructionsText;
@@ -36,12 +37,7 @@ function resetInstructions() {
     // REMOVE: timerElement.innerHTML="Time: " + "59";
 
     // Reset buttons
-    buttonStartElement.css('display', 'inline-block');
-    buttonOneElement.css('display', 'none');
-    buttonTwoElement.css('display', 'none');
-    buttonThreeElement.css('display', 'none')
-    buttonFourElement.css('display', 'none');
-    timerElement.innerHTML="Time: 0";
+    toggleAnswerButtons("off");
 }
 
 function toggleAnswerButtons(state) {
@@ -73,7 +69,8 @@ function nextQuestion(questionNumber) {
         loadOptions(options[questionNumber]);
         questionElement.innerHTML=questions[questionNumber];
     } else {
-        endGame();
+        resetInstructions();
+        console.log("END GAME HERE");
     }
 
 }
