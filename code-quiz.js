@@ -12,6 +12,7 @@ const correctSound = new Audio("correct-ding.mp3");
 var answersElement = $('ul');
 
 var questionNumber = 0;
+var timer;
 var timerCount = 60;
 
 var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
@@ -30,14 +31,14 @@ answers = ["alerts", "parenthesis", "all of the above"];
 function resetInstructions() {
     console.log("RESET HERE");
     questionNumber = 0;
+    timerCount = 60;
 
     // RESET BOARD - 
     questionElement.innerHTML = instructionsText;
 
-    // REMOVE: timerElement.innerHTML="Time: " + "59";
-
     // Reset buttons
     toggleAnswerButtons("off");
+    timerCount = 60;
 }
 
 function toggleAnswerButtons(state) {
@@ -58,6 +59,14 @@ function toggleAnswerButtons(state) {
 
 function startTimer() {
     console.log("STARTING TIMER");
+    timer = setInterval(function() {
+        timerCount--;
+        timerElement.textContent = ("Time remaining: " + timerCount);
+    }, 1000);
+    if (timerCount == 0) {
+        console.log("END IT BILLY");
+    }
+
 }
 
 function nextQuestion(questionNumber) {
@@ -70,6 +79,7 @@ function nextQuestion(questionNumber) {
         questionElement.innerHTML=questions[questionNumber];
     } else {
         resetInstructions();
+        clearInterval(timer);
         console.log("END GAME HERE");
     }
 
@@ -86,6 +96,7 @@ answerButtons.on('click', function (event) {
     console.log(questionNumber);
     if (event.target.textContent == "START") {
         console.log("Start Button Clicked");
+        startTimer();
         toggleAnswerButtons("on");
         nextQuestion(0);
     } else {
