@@ -5,6 +5,9 @@ var buttonOneElement = $("#button-one");
 var buttonTwoElement = $("#button-two");
 var buttonThreeElement = $("#button-three");
 var buttonFourElement = $("#button-four");
+var answerButtons = $(".button");
+
+const correctSound = new Audio("correct-ding.mp3");
 
 var answersElement = $('ul');
 
@@ -69,6 +72,8 @@ function nextQuestion(questionNumber) {
     if (questionNumber < numberOfQuestions) {
         loadOptions(options[questionNumber]);
         questionElement.innerHTML=questions[questionNumber];
+    } else {
+        endGame();
     }
 
 }
@@ -80,14 +85,27 @@ function loadOptions(questionNumber) {
     buttonFourElement.text(questionNumber[3]);
 }
 
-buttonStartElement.on('click', function () {
-    console.log("Start Button Clicked");
-    questionNumber = 0;
-    toggleAnswerButtons("on");
-    nextQuestion(0);
+answerButtons.on('click', function (event) {
+    console.log(questionNumber);
+    if (event.target.textContent == "START") {
+        console.log("Start Button Clicked");
+        toggleAnswerButtons("on");
+        nextQuestion(0);
+    } else {
+        var answerIsCorrect = checkAnswer(questionNumber, event.target.textContent);
+        console.log(answerIsCorrect);
+        if (answerIsCorrect) {
+            correctSound.play();
+        }
+        questionNumber++;
+        nextQuestion(questionNumber);
     }
-);
 
+});
+
+function checkAnswer(number, answer) {
+    return answers[number] == answer;
+}
 
 
 resetInstructions();
