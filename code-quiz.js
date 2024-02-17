@@ -11,7 +11,7 @@ var answerButtons = $(".button");
 
 var scores = [];
 
-const correctSound = new Audio("correct-ding.mp3");
+const correctSound = new Audio("correct-ding-better.mp3");
 const wrongSound = new Audio("wrong-ding.mp3");
 
 var answersElement = $('ul');
@@ -38,14 +38,12 @@ answers = ["alerts", "parenthesis", "all of the above", "quotes", "console.log"]
 
 
 function resetInstructions() {
-    // RESET BOARD - 
+    // RESET BOARD
     questionNumber = 0;
     timerCount = 60;
     questionElement.innerHTML = instructionsText;
-
-    // Reset buttons
     toggleAnswerButtons("off");
-    timerElement.textContent = ("Time remaining: " + timerCount);
+    showCountDown();
 }
 
 function toggleAnswerButtons(state) {
@@ -80,11 +78,10 @@ function startTimer() {
 function endGame(reason) {
     console.log("ENDING GAME HERE");
     if (reason == "time") {
-        alert("Unfortunately, you failed to finish the quiz in time:(\nPress OK to try the quiz again.");
+         alert("Unfortunately, you failed to finish the quiz in time :(\nPress OK to try the quiz again.");
     } else {
         let userInitials = prompt("Congratulations!! You finished the quiz!!\nEnter Your Initials to record your score...\n(Only the first 3 characters will be used)");
         scores.push([userInitials.toUpperCase().slice(0, 3), timerCount]);
-        console.log(scores);
     }
 
 }
@@ -134,7 +131,6 @@ answerButtons.on('click', function (event) {
             timerCount  -= 10;
             timerCount < 0 ? timerCount = 0 : null;
             showCountDown();
-            /*timerElement.textContent = ("Time remaining: " + timerCount);*/
         }
         questionNumber++;
         nextQuestion(questionNumber);
