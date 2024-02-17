@@ -1,3 +1,4 @@
+// Connect to elements with jQuery or querySelector
 var questionElement = document.querySelector(".question");
 var timerElement = document.querySelector(".time-left");
 var highScoresElement = $(".high-scores");
@@ -9,19 +10,23 @@ var buttonThreeElement = $("#button-three");
 var buttonFourElement = $("#button-four");
 var answerButtons = $(".button");
 
+// List of scores
 var scores = [];
 
+// Audio Clips
 const correctSound = new Audio("correct-ding-better.mp3");
 const wrongSound = new Audio("wrong-ding.mp3");
 
-var answersElement = $('ul');
-
+// Program Variables
+var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
 var questionNumber = 0;
 var timer;
 var timerCount;
 
-var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
+/* Different approach - will focus on later
+var answersElement = $('ul'); */
 
+// Questions/Options/Answers Array Combos
 questions = ["Commonly used data types DO Not Include:",
              "The condition in an if / else statement is enclosed with ____________.",
              "Arrays in JavaScript can be used to store ____________.",
@@ -36,9 +41,8 @@ options = [["strings", "booleans", "alerts", "numbers"],
 
 answers = ["alerts", "parenthesis", "all of the above", "quotes", "console.log"];
 
-
+// Reset Quiz Page
 function resetInstructions() {
-    // RESET BOARD
     questionNumber = 0;
     timerCount = 60;
     questionElement.innerHTML = instructionsText;
@@ -46,6 +50,7 @@ function resetInstructions() {
     showCountDown();
 }
 
+// Disable Start Button once quiz has started
 function toggleAnswerButtons(state) {
     if (state == "on") {
         buttonStartElement.css('display', 'none');
@@ -62,6 +67,7 @@ function toggleAnswerButtons(state) {
     }
 }
 
+// Start Quiz Timer - Subtract 10 when a wrong answer occurs
 function startTimer() {
     console.log("STARTING TIMER");
     timer = setInterval(function() {
@@ -75,6 +81,7 @@ function startTimer() {
     }, 1000);
 }
 
+// End game processes - evaluate if quiz was finished
 function endGame(reason) {
     console.log("ENDING GAME HERE");
     if (reason == "time") {
@@ -83,20 +90,16 @@ function endGame(reason) {
         let userInitials = prompt("Congratulations!! You finished the quiz!!\nEnter Your Initials to record your score...\n(Only the first 3 characters will be used)");
         scores.push([userInitials.toUpperCase().slice(0, 3), timerCount]);
     }
-
 }
 
+// Display/update countdown clock
 function showCountDown() {
     timerElement.textContent = ("Time remaining: " + timerCount);
 }
 
-
+// Continue to next question until quiz is complete
 function nextQuestion(questionNumber) {
-    console.log('Starting quiz on question number ' + (questionNumber + 1));
-
-    var numberOfQuestions = questions.length;
-
-    if (questionNumber < numberOfQuestions) {
+    if (questionNumber < questions.length) {
         loadOptions(options[questionNumber]);
         questionElement.innerHTML=questions[questionNumber];
     } else {
@@ -104,9 +107,9 @@ function nextQuestion(questionNumber) {
         resetInstructions();
         clearInterval(timer);        
     }
-
 }
 
+// Setup answer button options based on question number
 function loadOptions(questionNumber) {
     buttonOneElement.text(questionNumber[0]);
     buttonTwoElement.text(questionNumber[1]);
@@ -114,6 +117,7 @@ function loadOptions(questionNumber) {
     buttonFourElement.text(questionNumber[3]);
 }
 
+// Once quiz has started answer buttons will alternate to question number until quiz is finished or time runs out
 answerButtons.on('click', function (event) {
     console.log(questionNumber);
     if (event.target.textContent == "START") {
@@ -124,20 +128,21 @@ answerButtons.on('click', function (event) {
     } else {
         var answerIsCorrect = checkAnswer(questionNumber, event.target.textContent);
         console.log(answerIsCorrect);
+        // Inform user if they got the answer right or wrong with a sound clip
         if (answerIsCorrect) {
             correctSound.play();
         } else {
             wrongSound.play();
             timerCount  -= 10;
-            timerCount < 0 ? timerCount = 0 : null;
             showCountDown();
+            timerCount < 0 ? timerCount = 0 : null;
         }
         questionNumber++;
         nextQuestion(questionNumber);
     }
-
 });
 
+// Alert the user of the scores that have been accomplished and by whom
 highScoresElement.on('click', function (event) {
     console.log("Display high scores here");
     var highScoresText = "";
@@ -150,8 +155,9 @@ highScoresElement.on('click', function (event) {
 
 function checkAnswer(number, answer) {
     return answers[number] == answer;
-}
+};
 
+// Make sure site starts with defaults
 resetInstructions();
 
 
