@@ -1,7 +1,7 @@
 // Connect to elements with jQuery or querySelector
 var questionElement = document.querySelector(".question");
 var timerElement = document.querySelector(".time-left");
-var highScoresElement = $(".high-scores");
+var scoresElement = $(".high-scores");
 
 var buttonStartElement = $("#button-start");
 var buttonOneElement = $("#button-one");
@@ -12,16 +12,17 @@ var answerButtons = $(".button");
 
 // List of scores
 var scores = [];
+var timerCountStart = 60;
 
 // Audio Clips
 const correctSound = new Audio("correct-ding-better.mp3");
 const wrongSound = new Audio("wrong-ding.mp3");
 
 // Program Variables
-var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
+var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit (" + timerCountStart + " seconds). Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
 var questionNumber = 0;
 var timer;
-var timerCount;
+
 
 /* Different approach - will focus on later
 var answersElement = $('ul'); */
@@ -44,7 +45,7 @@ answers = ["alerts", "parenthesis", "all of the above", "quotes", "console.log"]
 // Reset Quiz Page
 function resetInstructions() {
     questionNumber = 0;
-    timerCount = 40;
+    timerCount = timerCountStart;
     questionElement.innerHTML = instructionsText;
     toggleAnswerButtons("off");
     timerElement.textContent = ("Time remaining: " + timerCount);
@@ -67,7 +68,7 @@ function toggleAnswerButtons(state) {
     }
 }
 
-// Start Quiz Timer - Subtract 10 when a wrong answer occurs
+// Start Quiz Timer
 function startTimer() {
     console.log("STARTING TIMER");
     timer = setInterval(function() {
@@ -82,28 +83,31 @@ function startTimer() {
     }, 1000);
 }
 
-// End game processes - evaluate if quiz was finished
+// End game processes - evaluate if quiz was finished and/or how
 function endGame(reason) {
     console.log("ENDING GAME HERE");
     if (reason == "time") {
-        console.log(timerCount);
         timerElement.textContent = ("Time remaining: " + timerCount);
         alert("Unfortunately, you failed to finish the quiz in time or ran out of points :(\nPress OK to try the quiz again." + "\n");
     } else {
         let userInitials = prompt("Congratulations!! You finished the quiz!!\nYou finished the quiz with a score of: " + timerCount + "\nEnter Your Initials to record your score...\n(Only the first 3 characters will be used)");
-        scores.push([userInitials.toUpperCase().slice(0, 3), timerCount]);
+        if (userInitials == "" || userInitials == null) {
+            scores.push(["NuL", timerCount]);
+        } else {
+            scores.push([userInitials.toUpperCase().slice(0, 3), timerCount]);
+        }
     }
+    resetInstructions();
+    clearInterval(timer);
 }
 
-// Continue to next question until quiz is complete
+// Continue to next question until quiz is complete - A dirty form of recursion
 function nextQuestion(questionNumber) {
     if (questionNumber < questions.length) {
         loadOptions(options[questionNumber]);
         questionElement.innerHTML=questions[questionNumber];
     } else {
-        endGame("completed");
-        resetInstructions();
-        clearInterval(timer);        
+        endGame("completed");            
     }
 }
 
@@ -137,18 +141,26 @@ answerButtons.on('click', function (event) {
         }
         questionNumber++;
         nextQuestion(questionNumber);
+
+        // For some reason this doesn't work like the above question number advancement - putting the ++ in the function messes it up off the bat - research when bored
+        //nextQuestion(questionNumber++);
     }
 });
 
 // Alert the user of the scores that have been accomplished and by whom
-highScoresElement.on('click', function (event) {
-    console.log("Display high scores here");
-    var highScoresText = "";
-    for(i=0; i < scores.length; i++) {
-        highScoresText += ("Player: " + scores[i][0] + "  Score: " + scores[i][1] + "\n");
-        console.log(highScoresText);
-    }
-    alert(highScoresText);
+scoresElement.on('click', function (event) {
+    var scoresText = "";
+    if (scores.length > 0) {
+        for(i=0; i < scores.length; i++) {
+            scoresText += ("Player: " + scores[i][0] + "  Score: " + scores[i][1] + " / " + timerCountStart + "\n");
+            console.log(scoresText);
+        }
+        alert(scoresText);
+    } else {
+        alert("There are no scores recorded yet...");
+    }    
+
+    
 });
 
 function checkAnswer(number, answer) {
