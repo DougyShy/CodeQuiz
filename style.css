@@ -4,7 +4,10 @@
 
   .high-scores {
     color: red;
+  }
 
+  .high-scores:hover {
+    cursor: pointer;
   }
 
   .time-left {
@@ -13,7 +16,8 @@
 
   header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding: 40px;
     font-size: 20px;
   }
