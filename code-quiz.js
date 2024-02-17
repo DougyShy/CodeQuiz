@@ -44,10 +44,10 @@ answers = ["alerts", "parenthesis", "all of the above", "quotes", "console.log"]
 // Reset Quiz Page
 function resetInstructions() {
     questionNumber = 0;
-    timerCount = 60;
+    timerCount = 40;
     questionElement.innerHTML = instructionsText;
     toggleAnswerButtons("off");
-    showCountDown();
+    timerElement.textContent = ("Time remaining: " + timerCount);
 }
 
 // Disable Start Button once quiz has started
@@ -71,13 +71,14 @@ function toggleAnswerButtons(state) {
 function startTimer() {
     console.log("STARTING TIMER");
     timer = setInterval(function() {
+        timerCount--;
+        timerElement.textContent = ("Time remaining: " + timerCount);
         if (timerCount <= 0) {
+            timerCount = 0;
             endGame("time");
             clearInterval(timer);
             resetInstructions();
         }
-        showCountDown();
-        timerCount--;
     }, 1000);
 }
 
@@ -85,16 +86,13 @@ function startTimer() {
 function endGame(reason) {
     console.log("ENDING GAME HERE");
     if (reason == "time") {
-         alert("Unfortunately, you failed to finish the quiz in time :(\nPress OK to try the quiz again.");
+        console.log(timerCount);
+        timerElement.textContent = ("Time remaining: " + timerCount);
+        alert("Unfortunately, you failed to finish the quiz in time or ran out of points :(\nPress OK to try the quiz again." + "\n");
     } else {
-        let userInitials = prompt("Congratulations!! You finished the quiz!!\nEnter Your Initials to record your score...\n(Only the first 3 characters will be used)");
+        let userInitials = prompt("Congratulations!! You finished the quiz!!\nYou finished the quiz with a score of: " + timerCount + "\nEnter Your Initials to record your score...\n(Only the first 3 characters will be used)");
         scores.push([userInitials.toUpperCase().slice(0, 3), timerCount]);
     }
-}
-
-// Display/update countdown clock
-function showCountDown() {
-    timerElement.textContent = ("Time remaining: " + timerCount);
 }
 
 // Continue to next question until quiz is complete
@@ -133,9 +131,9 @@ answerButtons.on('click', function (event) {
             correctSound.play();
         } else {
             wrongSound.play();
-            timerCount  -= 10;
-            showCountDown();
-            timerCount < 0 ? timerCount = 0 : null;
+            // I changed this to 9 because at 10 it seems to take off 11 seconds from timerCount (timer issue?) - Wrong answer takes off 10 seconds with this fix (weird)
+            timerCount  -= 9;
+            timerCount <= 0 ? timerCount = 0 : null;
         }
         questionNumber++;
         nextQuestion(questionNumber);
