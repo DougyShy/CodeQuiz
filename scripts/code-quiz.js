@@ -15,8 +15,8 @@ var scores = [];
 var timerCountStart = 60;
 
 // Audio Clips
-const correctSound = new Audio("correct-ding-better.mp3");
-const wrongSound = new Audio("wrong-ding.mp3");
+const correctSound = new Audio("assets/correct-ding-better.mp3");
+const wrongSound = new Audio("assets/wrong-ding.mp3");
 
 // Program Variables
 var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit (" + timerCountStart + " seconds). Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
