@@ -41,6 +41,8 @@ This can be used to test your knowledge on coding standards and practices/inform
 ## Includes
 
 This code uses jQuery and the following source (src) "https://code.jquery.com/jquery-3.5.1.min.js"
+Github Repository: https://github.com/DougyShy/CodeQuiz
+Githup Pages Address: https://dougyshy.github.io/CodeQuiz/
 
 ## Contributing
 
