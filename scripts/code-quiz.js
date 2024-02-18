@@ -28,7 +28,7 @@ var timer;
 var answersElement = $('ul'); */
 
 // Questions/Options/Answers Array Combos
-questions = ["Commonly used data types DO Not Include:",
+questions = ["Commonly used data types DO NOT include:",
              "The condition in an if / else statement is enclosed with ____________.",
              "Arrays in JavaScript can be used to store ____________.",
              "String values must be enclosed within ____________ when being assigned to variables.",
