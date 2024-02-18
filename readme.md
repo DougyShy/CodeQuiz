@@ -15,8 +15,7 @@ This project is based on using Javascript to ask a user to take a timed quiz and
 
 ## About
 
- - This javascript app/function will create a random password from 8 to 128 characters involving uppercase and lowercase letters, special characters, and numeric values. All or one but none will not work.
- - This app will ask the user to take a coding quiz and if they finish in time they will be able to add their name to the scores list (even if zero because they got the last answer wrong) but still technically finished the quiz.
+ - This javascript app will ask the user to take a coding quiz and if they finish in time they will be able to add their name to the scores list (even if zero because they got the last answer wrong) but still technically finished the quiz.
 
 ## Getting Started
 

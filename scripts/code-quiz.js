@@ -12,13 +12,14 @@ var answerButtons = $(".button");
 
 // List of scores
 var scores = [];
-var timerCountStart = 60;
+
 
 // Audio Clips
-const correctSound = new Audio("correct-ding-better.mp3");
-const wrongSound = new Audio("wrong-ding.mp3");
+const correctSound = new Audio("assets/correct-ding-better.mp3");
+const wrongSound = new Audio("assets/wrong-ding.mp3");
 
 // Program Variables
+var timerCountStart = 60;
 var instructionsText = "<h1>" + "Coding Quiz Challenge</h1><h2>Try to answer the following code-related questions within the time limit (" + timerCountStart + " seconds). Keep in mind that incorrect answers will penalize your score/time by ten seconds!</H2>";
 var questionNumber = 0;
 var timer;
@@ -46,6 +47,7 @@ answers = ["alerts", "parenthesis", "all of the above", "quotes", "console.log"]
 function resetInstructions() {
     questionNumber = 0;
     timerCount = timerCountStart;
+    scoresElement.css("pointer-events", "auto");
     questionElement.innerHTML = instructionsText;
     toggleAnswerButtons("off");
     timerElement.textContent = ("Time remaining: " + timerCount);
@@ -70,7 +72,9 @@ function toggleAnswerButtons(state) {
 
 // Start Quiz Timer
 function startTimer() {
-    console.log("STARTING TIMER");
+    // Disable View Scores (was a way to stop the clock during quiz)
+    scoresElement.css("pointer-events", "none");
+    
     timer = setInterval(function() {
         timerCount--;
         timerElement.textContent = ("Time remaining: " + timerCount);
@@ -85,7 +89,6 @@ function startTimer() {
 
 // End game processes - evaluate if quiz was finished and/or how
 function endGame(reason) {
-    console.log("ENDING GAME HERE");
     if (reason == "time") {
         timerElement.textContent = ("Time remaining: " + timerCount);
         alert("Unfortunately, you failed to finish the quiz in time or ran out of points :(\nPress OK to try the quiz again." + "\n");
@@ -121,15 +124,12 @@ function loadOptions(questionNumber) {
 
 // Once quiz has started answer buttons will alternate to question number until quiz is finished or time runs out
 answerButtons.on('click', function (event) {
-    console.log(questionNumber);
     if (event.target.textContent == "START") {
-        console.log("Start Button Clicked");
         startTimer();
         toggleAnswerButtons("on");
         nextQuestion(0);
     } else {
         var answerIsCorrect = checkAnswer(questionNumber, event.target.textContent);
-        console.log(answerIsCorrect);
         // Inform user if they got the answer right or wrong with a sound clip
         if (answerIsCorrect) {
             correctSound.play();
@@ -153,7 +153,6 @@ scoresElement.on('click', function (event) {
     if (scores.length > 0) {
         for(i=0; i < scores.length; i++) {
             scoresText += ("Player: " + scores[i][0] + "  Score: " + scores[i][1] + " / " + timerCountStart + "\n");
-            console.log(scoresText);
         }
         alert(scoresText);
     } else {
