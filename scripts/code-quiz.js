@@ -1,8 +1,8 @@
 // Connect to elements with jQuery or querySelector
 var questionElement = document.querySelector(".question");
 var timerElement = document.querySelector(".time-left");
-var scoresElement = $(".high-scores");
 
+var scoresElement = $(".high-scores");
 var buttonStartElement = $("#button-start");
 var buttonOneElement = $("#button-one");
 var buttonTwoElement = $("#button-two");

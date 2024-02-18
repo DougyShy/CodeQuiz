@@ -1,4 +1,3 @@
-
 # Coding Quiz
 
 This project is based on using Javascript to ask a user to take a timed quiz and store the information if they are successful.
@@ -10,16 +9,18 @@ This project is based on using Javascript to ask a user to take a timed quiz and
 - [Installing](#installing)
 - [Usage](#usage)
 - [Screenshots](#screenshots)
-- [Includes](#screenshots)
+- [Includes](#includes)
 - [Contributing](#contributing)
 
 ## About
 
- - This javascript app will ask the user to take a coding quiz and if they finish in time they will be able to add their name to the scores list (even if zero because they got the last answer wrong) but still technically finished the quiz.
+ - This app will ask the user to take a coding quiz and if they finish in time they will be able to add their name to the scores list (even if zero because they got the last answer wrong) but still technically finished the quiz.
+ - The app starts with 60 seconds and has a penalty of 10 seconds per wrong answer.
 
 ## Getting Started
 
 Just click the "Start" button and follow the directions/prompts to start another testing session.
+Click the "View Scores" option top left screen to see session scores
 
 ## Installing
 
@@ -31,9 +32,11 @@ This can be used to test your knowledge on coding standards and practices/inform
 
 ## Screenshots
 
-![Alt text](pwdgen-start.png)
-![Alt text](pwdgen-prompt.png)
-![Alt text](pwdgen-result.png)
+![Alt text](screenshots/start-screen.png)
+![Alt text](screenshots/pick-answer-screen.png)
+![Alt text](screenshots/success-and-point-screen.png)
+![Alt text](screenshots/view-scores-screen.png)
+![Alt text](screenshots/ran-out-of-time-screen.png)
 
 ## Includes
 
@@ -43,6 +46,6 @@ This code uses jQuery and the following source (src) "https://code.jquery.com/jq
 
 Clinton Scheible
 - UTSA Bootcamp
-- Challenge 1
+- Challenge 4
 
 
