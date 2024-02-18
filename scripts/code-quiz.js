@@ -142,7 +142,7 @@ answerButtons.on('click', function (event) {
         questionNumber++;
         nextQuestion(questionNumber);
 
-        // For some reason this doesn't work like the above question number advancement - putting the ++ in the function messes it up off the bat - research when bored
+        // For some reason this doesn't work like the above question number advancement - putting the ++ in the function messes it up off the bat - RESEARCH when bored
         //nextQuestion(questionNumber++);
     }
 });
